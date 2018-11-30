@@ -36,60 +36,42 @@ at the west end of the street, but should now be facing west.
 import "turns";
 
 function CollectAllTreats(){
-	collectUpperTreats();
-	collectLowerTreats();
+	northLine();
+	turnAround();
+	southLine();
 }
 
 
-function collectUpperTreats(){
-	move();
+function northLine(){
+	while(frontIsClear()){
+		pickUpBeeper();
+		move();
+	}
+	pickUpBeeper();
+}
+
+function southLine(){
+	while(frontIsClear()){
+		pickUpBeeper();
+		move();
+	}
+}
+
+function pickUpBeeper(){
 	if(leftIsClear()){
 		turnLeft();
 		move();
-			if(beepersPresent()){
-				collectBeeperLeft();
-			}
-			if(noBeepersPresent()){
-				noBeeperLeft();
-			}
-	}
-	if(rightIsClear()){
-		turnRight();
-		move();
-			if(beepersPresent()){
-				collectBeeperRight();
-					if(noBeepersPresent()){
-						noBeeperRight();
-					}
-			}
+		if(beepersPresent()){
+			pickBeeper();
+			turnAround();
+			move();
+			turnLeft();
+		}else{
+			turnAround();
+			move();
+			turnLeft();
+		}
 	}
 }
 
 
-function collectBeeperLeft(){
-	pickBeeper();
-	turnAround();
-	move();
-	turnLeft();
-	move();
-}
-
-function collectBeeperRight(){
-	pickBeeper();
-	turnAround();
-	move();
-	turnRight();
-	move();
-}
-
-function noBeeperLeft(){
-	turnAround();
-	move();
-	turnLeft();
-}
-
-function noBeeperRight(){
-	turnAround();
-	move();
-	turnRight();
-}
